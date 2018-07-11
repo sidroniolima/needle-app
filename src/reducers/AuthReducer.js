@@ -1,4 +1,5 @@
 import decode from 'jwt-decode';
+import { Actions } from 'react-native-router-flux';
 import { 
     EMAIL_CHANGED,
 	PASSWORD_CHANGED,
@@ -6,7 +7,9 @@ import {
 	LOGIN_USER_FAIL,
 	LOGIN_USER,
 	LOGOUT,
-	LOGIN_IS_LOADING
+	LOGIN_IS_LOADING,
+	CADASTRO_ERROR,
+	CADASTRO_OK
 } from '../actions/types';
 
 const INITIAL_STATE = { 
@@ -15,12 +18,22 @@ const INITIAL_STATE = {
 	user: null,
 	token: null,
 	error: '',
-	isLoading: false
+	isLoading: false,
+	cadastroError: ''
 }
 
 export default (state = INITIAL_STATE, action) => {
 	switch(action.type)
 	{
+		case CADASTRO_ERROR:
+		{
+			return { ...state, cadastroError: action.payload };
+		}
+		case CADASTRO_OK:
+		{
+			Actions.principal({type: 'reset'});
+			return { ...state, user: action.payload };
+		}
 		case EMAIL_CHANGED:
 		{
 			return { ...state, email: action.payload };

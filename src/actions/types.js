@@ -15,3 +15,11 @@ export const API_URL_LOGIN = 'https://meuvisualsemijoias.net/JWTProvider';
 export const API_URL_VALIDATE_TOKEN = 'https://meuvisualsemijoias.net/JWTValidate';
 
 export const API_ULR_VENDA = 'rest/venda-final';
+
+export const ERROR_AUTH_EMAIL_JA_UTILIZADO = 'O email informado já está em uso.';
+export const ERROR_AUTH_EMAIL_INVALIDO = 'Insira um email válido e ativo.';
+export const ERROR_AUTH_USUARIO_INATIVO = 'Não foi permitido criar a conta.';
+export const ERROR_AUTH_SENHA_FRACA = 'Escolha uma senha mais forte';
+
+export const CADASTRO_ERROR = 'cadastro_error';
+export const CADASTRO_OK = 'cadastro_ok';

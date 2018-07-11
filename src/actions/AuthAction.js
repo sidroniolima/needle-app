@@ -2,6 +2,7 @@ import axios from '../components/common/API';
 import decode from 'jwt-decode';
 import { Actions } from 'react-native-router-flux';
 import { AsyncStorage } from 'react-native';
+import firebase from 'firebase';
 import {
 	EMAIL_CHANGED,
 	PASSWORD_CHANGED,
@@ -12,8 +13,62 @@ import {
 	SET_CLIENTE_VENDA,
 	LOGOUT,
 	LOGIN_IS_LOADING,
-	API_URL_VALIDATE_TOKEN
+	API_URL_VALIDATE_TOKEN,
+	ERROR_AUTH_EMAIL_JA_UTILIZADO,
+	ERROR_AUTH_EMAIL_INVALIDO,
+	ERROR_AUTH_USUARIO_INATIVO,
+	ERROR_AUTH_SENHA_FRACA,
+	CADASTRO_OK,
+	CADASTRO_ERROR
 } from './types';
+
+export const createUser = (user) => {
+	return (dispatch) => {
+		firebase
+			.auth()
+			.setPersistence(firebase.auth.Auth.Persistence.SESSION)
+			.then(() =>
+
+				firebase
+					.auth()
+					.createUserWithEmailAndPassword(user.email, user.senha)
+					.then((data) => {
+						console.log('ok', data);
+						dispatch({ type: CADASTRO_OK, payload: data });
+					})
+					.catch(function (error) {
+						const erroMsg = handleAuthErrors(error.code);
+						dispatch({ type: CADASTRO_ERROR, payload: erroMsg });
+					})
+			)
+			.catch((error) => {
+				console.log(error);
+			})
+	};
+}
+
+const handleAuthErrors = (code) => {
+	switch (code) {
+		case 'auth/email-already-in-use':
+			return ERROR_AUTH_EMAIL_JA_UTILIZADO;
+		case 'auth/invalid-email':
+			return ERROR_AUTH_EMAIL_INVALIDO;
+		case 'auth/operation-not-allowed':
+			return ERROR_AUTH_USUARIO_INATIVO;
+		case 'auth/weak-password':
+			return ERROR_AUTH_SENHA_FRACA;
+		default:
+			return undefined;
+	}
+}
+
+function writeUserData(userId, nome, empresa, segmento) {
+	firebase.database().ref('users/' + userId).set({
+		nome: nome,
+		empresa: empresa,
+		segmento: segmento
+	});
+}
 
 export const emailChanged = (text) => {
 	return {
@@ -21,58 +76,6 @@ export const emailChanged = (text) => {
 		payload: text
 	};
 };
-
-const getTokenStoraged = async () => {
-	try {
-		const value = await AsyncStorage.getItem('@MV-CASH:token');
-		if (value) {
-			return value;
-		}
-		return null;
-	} catch (error) {
-		console.log(error);
-	}
-}
-
-const removeToken = async () => {
-	try {
-		await AsyncStorage.removeItem('@MV-CASH:token');
-	} catch (error) {
-		console.log(error);
-	}
-}
-
-export const validateToken = (dispatch, token) => 
-{
-		axios.get(API_URL_VALIDATE_TOKEN)
-			.then((resp) => loginUserSuccess(dispatch, token))
-			.catch((error) => {
-				errorHandling(error);
-				loginUserFail(dispatch, error);
-			});
-}
-
-export const logout = () => {
-	return (dispatch) => {
-		removeToken();
-
-		dispatch({ type: LOGOUT })
-	}
-}
-
-export const userAlreadyLogged = () => {
-	return (dispatch) => {
-
-		AsyncStorage.getItem('@MV-CASH:token')
-			.then(resp => {			
-				const token = resp;
-				if (token) 
-				{							
-					validateToken(dispatch, token);
-				}
-		});
-	};
-}
 
 export const passwordChanged = (text) => {
 	return {
@@ -82,45 +85,66 @@ export const passwordChanged = (text) => {
 };
 
 export const loginUser = ({ email, password }) => {
-	return (dispatch) => 
-	{
+	return (dispatch) => {
 		dispatch({ type: LOGIN_IS_LOADING });
 
-		axios.post(API_URL_LOGIN, {},
-			{
-				auth: { username: email, password: password }
-			})
-			.then((resp) => loginUserSuccess(dispatch, resp.data))
-			.catch((error) => {
-				loginUserFail(dispatch, error);
-			});
+		firebase
+			.auth()
+			.setPersistence(firebase.auth.Auth.Persistence.SESSION)
+			.then(() =>
+
+				firebase
+					.auth()
+					.signInWithEmailAndPassword(login.email, login.senha)
+					.then((data) => {
+
+						Actions.main();
+
+						dispatch({
+							type: LOGIN_USER_SUCCESS,
+							payload: data
+						});
+					})
+					.catch((error) => {
+						var errorCode = error.code;
+						var errorMessage = error.message;
+
+						loginUserFail(dispatch, errorMessage);
+					})
+			)
 	};
 };
+}
 
-const loginUserSuccess = async (dispatch, data) => {
-	try {
-		console.log('login suycces')
-		await AsyncStorage.setItem('@MV-CASH:token', data);
-		axios.defaults.headers.common['Authorization'] = `Bearer ${data}`;
+const loginUserSuccess = async (dispatch, login) => {
+	return (dispatch) => {
+		firebase
+			.auth()
+			.setPersistence(firebase.auth.Auth.Persistence.SESSION)
+			.then(() =>
 
-	} catch (error) 
-	{
-		console.log(error);
-	}
-	const tokenDecoded = decode(data);
+				firebase
+					.auth()
+					.signInWithEmailAndPassword(login.email, login.senha)
+					.then((data) => {
 
-	dispatch({
-		type: LOGIN_USER_SUCCESS,
-		payload: data
-	});
+						Actions.main();
 
-	dispatch(
-		{
-			type: SET_CLIENTE_VENDA,
-			payload: tokenDecoded
-		});
+						dispatch({
+							type: LOGIN_USER_SUCCESS,
+							payload: data
+						});
+					})
+					.catch((error) => {
+						var errorCode = error.code;
+						var errorMessage = error.message;
 
-	Actions.main();
+						loginUserFail(dispatch, errorMessage);
+					})
+			)
+	};
+
+
 };
 
 const loginUserFail = (dispatch, msg) => {

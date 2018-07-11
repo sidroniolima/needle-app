@@ -28,7 +28,7 @@ export default {
     height: 40,
     width: 100,
     backgroundColor: '#ffffff',
-    borderColor: '#ff6666',
+    borderColor: '#330000',
     borderWidth: 0.8,
     borderRadius: 2
   },
@@ -39,7 +39,7 @@ export default {
     flex: 1
   },
   errorText: {
-    color: '#ff6666',
+    color: '#330000',
     fontSize: 11
   },
   errorView: {
@@ -50,7 +50,7 @@ export default {
     {
       flexDirection: 'row',
       alignItems: 'center',
-      paddingBottom: 15,
+      paddingBottom: 5,
     },
     bgPickerStyle:
     {
@@ -72,7 +72,7 @@ export default {
       flex: 2,
       height: 40,
       width: 100,
-      borderColor: '#ff6666',
+      borderColor: '#330000',
       borderWidth: 0.8,
       borderRadius: 2
     },    

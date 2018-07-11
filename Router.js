@@ -3,7 +3,8 @@ import { View, StyleSheet } from 'react-native';
 import { Scene, Router, Actions } from 'react-native-router-flux';
 import Login from './src/components/Login';
 import SplashScreen from './src/components/SplashScreen';
-import CadastroForm from './src/components/CadastroForm';
+import Cadastro from './src/components/Cadastro';
+import Principal from './src/components/Principal';
 
 const RouterComponent = () => {
 	return (
@@ -20,9 +21,12 @@ const RouterComponent = () => {
 				
 				<Scene key="auth" headerMode='none'>
 					<Scene key="login" component={ Login } />				
+					
 				</Scene>
-
-				<Scene key='cadastro' component={CadastroForm}/>
+				
+				<Scene key='cadastro' component={Cadastro}/>
+				
+				<Scene key="principal" component={Principal} title="Needle"/>
 
 			</Scene>
 		</Router>

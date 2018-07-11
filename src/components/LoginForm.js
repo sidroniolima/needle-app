@@ -18,7 +18,10 @@ class LoginForm extends Component
   render()
   {
     return (
-      <View style={styles.loginFormContainer}>
+      <View 
+        style={styles.loginFormContainer}
+      >
+
         <TextInput 
           underlineColorAndroid="transparent"
           placeholder="Login"
@@ -48,7 +51,6 @@ class LoginForm extends Component
         >
           <Text>Esqueceu a senha?</Text>
         </TouchableOpacity>                
-
       </View>
     );
   }
