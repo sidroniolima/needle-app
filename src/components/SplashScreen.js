@@ -1,5 +1,7 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import { Actions } from 'react-native-router-flux';
+import { tryLogin } from '../actions/AuthAction';
 import BackImage from './BackImage';
 
 class SplashScreen extends React.Component
@@ -8,21 +10,35 @@ class SplashScreen extends React.Component
   {
     super(props);
 
-    state = { 
+    this.state = { 
       timer: null
     };
   }
 
   componentDidMount()
-  {
-    // try to login
-    let timer = setInterval(this.goLogin, 3000);
+  { 
+    console.log(new Date())  ;
+    this.props.tryLogin();
+
+    let timer = setInterval(() => {
+      this.verifyLogin();
+    }, 5000);
+
     this.setState({timer});
   }
 
-  goLogin()
+  verifyLogin()
   {
-    Actions.login();
+    console.log(new Date())  ;
+    clearInterval(this.state.timer);
+
+    if (this.props.user)
+    {
+      Actions.principal();
+    } else
+    {
+      Actions.auth();
+    }
   }
 
   componentWillUnmount()
@@ -38,4 +54,6 @@ class SplashScreen extends React.Component
   }
 } 
 
-export default SplashScreen;
+const mapStateToProps = state => ({user: state.auth.user})
+
+export default connect(mapStateToProps, { tryLogin })(SplashScreen);

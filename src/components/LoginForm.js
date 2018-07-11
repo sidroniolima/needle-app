@@ -5,14 +5,31 @@ import {
   View, 
   TextInput, 
   TouchableOpacity } from 'react-native';
+import { connect } from  'react-redux';
 import { Actions } from 'react-native-router-flux';
+import { loginUser } from '../actions/AuthAction';
 
 class LoginForm extends Component
 {
 
+  constructor(props)
+  {
+    super(props);
+    this.state = {
+      user: 'sidronio@hotmail.com',
+      password: '123456'
+    }
+  }
+
   onRegisterPress()
   {
     Actions.cadastro({type: 'reset'});
+  }
+
+  onLoginPress()
+  {
+    console.log('login');
+    this.props.loginUser(this.state);
   }
 
   render()
@@ -26,21 +43,29 @@ class LoginForm extends Component
           underlineColorAndroid="transparent"
           placeholder="Login"
           style={styles.textInput}
+          onChange={(value) => this.setState( {user: value} )}
+          value={this.state.user}
         />
 
         <TextInput 
+          type="password"
           underlineColorAndroid="transparent"
           placeholder="Senha"
           style={styles.textInput}
+          onChange={(value) => this.setState( {password: value} )}
+          value={this.state.password}
         />
 
-        <TouchableOpacity style={styles.loginBtn}>
+        <TouchableOpacity 
+          style={styles.loginBtn}
+          onPress={ () => this.onLoginPress() }
+        >
           <Text>Entrar</Text>
         </TouchableOpacity>
 
         <TouchableOpacity 
           style={styles.registerBtn}
-          onPress={ this.onRegisterPress }
+          onPress={ () => this.onRegisterPress() }
         >
           <Text>Cadastrar</Text>
         </TouchableOpacity>
@@ -92,4 +117,4 @@ const styles = StyleSheet.create({
   }
 });
 
-export default LoginForm;
+export default connect(null, {loginUser})(LoginForm);

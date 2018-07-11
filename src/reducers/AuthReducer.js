@@ -1,11 +1,8 @@
-import decode from 'jwt-decode';
-import { Actions } from 'react-native-router-flux';
 import { 
     EMAIL_CHANGED,
 	PASSWORD_CHANGED,
 	LOGIN_USER_SUCCESS,
 	LOGIN_USER_FAIL,
-	LOGIN_USER,
 	LOGOUT,
 	LOGIN_IS_LOADING,
 	CADASTRO_ERROR,
@@ -31,7 +28,6 @@ export default (state = INITIAL_STATE, action) => {
 		}
 		case CADASTRO_OK:
 		{
-			Actions.principal({type: 'reset'});
 			return { ...state, user: action.payload };
 		}
 		case EMAIL_CHANGED:
@@ -44,13 +40,9 @@ export default (state = INITIAL_STATE, action) => {
 		}
 		case LOGIN_USER_SUCCESS:
 		{
-			const tokenDecoded = decode(action.payload);
-			state = { ...state, 
-				user: tokenDecoded, 
-				isLoading: false, 
-				token: action.payload,
-			 };
-			 return state;
+			const { uid, email } = action.payload;
+			
+			return { ...state, user: {uid, email} };
 		}
 		case LOGIN_USER_FAIL:
 		{
