@@ -17,7 +17,6 @@ class SplashScreen extends React.Component
 
   componentDidMount()
   { 
-    console.log(new Date())  ;
     this.props.tryLogin();
 
     let timer = setInterval(() => {
@@ -29,15 +28,14 @@ class SplashScreen extends React.Component
 
   verifyLogin()
   {
-    console.log(new Date())  ;
     clearInterval(this.state.timer);
 
     if (this.props.user)
     {
-      Actions.principal();
+      Actions.tabbar({type: 'reset'});
     } else
     {
-      Actions.auth();
+      Actions.auth({type: 'reset'});
     }
   }
 

@@ -28,7 +28,6 @@ class LoginForm extends Component
 
   onLoginPress()
   {
-    console.log('login');
     this.props.loginUser(this.state);
   }
 

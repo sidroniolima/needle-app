@@ -15,14 +15,10 @@ class Principal extends React.Component
 
     return (
       <View style={styles.container}>
-        <Text>{`Bem vindo, ${email}, ao Needle app`}</Text>
-
-        <TouchableOpacity
-          style={styles.logoutBtn}
-          onPress={() => this.props.logout()}
-        >
-          <Text>Sair</Text>
-        </TouchableOpacity>
+        
+        <View>
+          <Text style={styles.textBanner}>Needle app</Text>          
+        </View>
       </View>
     );
   }
@@ -33,6 +29,11 @@ const styles = {
     flex:1, 
     alignItems: 'center',
     justifyContent: 'center'
+  },
+  textBanner:
+  {
+    color: '#e74c3c',
+    fontSize: 12
   },
   logoutBtn:{
     backgroundColor: '#e74c3c',
