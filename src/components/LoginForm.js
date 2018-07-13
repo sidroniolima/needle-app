@@ -7,7 +7,7 @@ import {
   TouchableOpacity } from 'react-native';
 import { connect } from  'react-redux';
 import { Actions } from 'react-native-router-flux';
-import { loginUser } from '../actions/AuthAction';
+import { loginUser, loginWithFacebook } from '../actions/AuthAction';
 
 class LoginForm extends Component
 {
@@ -29,6 +29,12 @@ class LoginForm extends Component
   onLoginPress()
   {
     this.props.loginUser(this.state);
+  }
+
+  onLoginWithFacebookPress()
+  {
+    console.log('PRESS LOGIN FACE');
+    this.props.loginWithFacebook();
   }
 
   render()
@@ -56,10 +62,17 @@ class LoginForm extends Component
         />
 
         <TouchableOpacity 
+          style={styles.loginFaceBtn}
+          onPress={ () => this.onLoginWithFacebookPress() }
+        >
+          <Text>Entrar com Facebook</Text>
+        </TouchableOpacity>        
+
+        <TouchableOpacity 
           style={styles.loginBtn}
           onPress={ () => this.onLoginPress() }
         >
-          <Text>Entrar</Text>
+          <Text>Entrar com usário e senha</Text>
         </TouchableOpacity>
 
         <TouchableOpacity 
@@ -113,7 +126,14 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     padding: 14,
     marginTop: 10
+  },
+  loginFaceBtn:{
+    backgroundColor: '#3b5998',
+    alignSelf: 'stretch',
+    alignItems: 'center',
+    padding: 14,
+    marginTop: 10
   }
 });
 
-export default connect(null, {loginUser})(LoginForm);
+export default connect(null, { loginUser, loginWithFacebook })(LoginForm);

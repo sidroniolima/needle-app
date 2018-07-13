@@ -6,7 +6,6 @@ class TabIcon extends React.Component {
 
   render() 
   {
-    console.log(this.props.focused);
     const styleDinamyc = this.props.focused
       ? styles.selected
       : styles.normal;

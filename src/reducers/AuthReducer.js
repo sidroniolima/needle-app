@@ -2,6 +2,7 @@ import {
     EMAIL_CHANGED,
 	PASSWORD_CHANGED,
 	LOGIN_USER_SUCCESS,
+	LOGIN_USER_SUCCESS_FACEBOOK,
 	LOGIN_USER_FAIL,
 	LOGOUT,
 	LOGIN_IS_LOADING,
@@ -43,6 +44,12 @@ export default (state = INITIAL_STATE, action) => {
 			const { uid, email } = action.payload;
 			
 			return { ...state, user: {uid, email} };
+		}
+		case LOGIN_USER_SUCCESS_FACEBOOK:
+		{
+			const { token, user } = action.payload;
+			console.log('LOGIN FACE SUCCESS', token, user);
+			return { ...state, token: token, user: user };
 		}
 		case LOGIN_USER_FAIL:
 		{
