@@ -9,10 +9,8 @@ import reducers from './src/reducers';
 
 import Router from './Router';
 
-export default class App extends React.Component 
-{
-  inicializeFirebase()
-  {
+export default class App extends React.Component {
+  inicializeFirebase() {
     var config = {
       apiKey: "AIzaSyDmwlPQcrGkN5YrbIf5MLh3P1AXKV-vftU",
       authDomain: "tetrati-needle-app.firebaseapp.com",
@@ -21,20 +19,17 @@ export default class App extends React.Component
       storageBucket: "tetrati-needle-app.appspot.com",
       messagingSenderId: "1098852224469"
     };
-    firebase.initializeApp(config);  
+    firebase.initializeApp(config);
   }
 
-  render() 
-  {
+  render() {
     this.inicializeFirebase();
 
     const store = createStore(reducers, {}, applyMiddleware(ReduxThunk));
 
     return (
-      <Provider store={ store }>
-        <View style={{flex:1}}>
-          <Router />
-        </View>
+      <Provider store={store}>
+        <Router />
       </Provider>
     );
   }
