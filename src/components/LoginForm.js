@@ -23,7 +23,7 @@ class LoginForm extends Component
 
   onRegisterPress()
   {
-    Actions.cadastro({type: 'reset'});
+    Actions.cadastro();
   }
 
   onLoginPress()

@@ -10,8 +10,6 @@ export default {
     paddingLeft: 5,
     fontSize: 13,
     lineHeight: 23,
-    height: 40,
-    width: 100,
     flex: 2,
     backgroundColor: '#ffffff',
     borderColor: '#b3b3cc',
@@ -25,17 +23,13 @@ export default {
     fontSize: 13,
     lineHeight: 23,
     flex: 2,
-    height: 40,
-    width: 100,
     backgroundColor: '#ffffff',
     borderColor: '#330000',
     borderWidth: 0.8,
     borderRadius: 2
   },
   containerStyle: {
-    height: 50,
-    flexDirection: 'row',
-    alignItems: 'center',
+    alignItems: 'stretch',
     flex: 1
   },
   errorText: {
@@ -48,8 +42,8 @@ export default {
   },
   containerPicker:
     {
-      flexDirection: 'row',
-      alignItems: 'center',
+      alignItems: '',
+      alignItems: 'stretch',
       paddingBottom: 5,
     },
     bgPickerStyle:
@@ -58,8 +52,6 @@ export default {
       paddingRight: 5,
       paddingLeft: 5,
       flex: 2,
-      height: 40,
-      width: 100,
       borderColor: '#b3b3cc',
       borderWidth: 0.8,
       borderRadius: 2
@@ -70,8 +62,6 @@ export default {
       paddingRight: 5,
       paddingLeft: 5,
       flex: 2,
-      height: 40,
-      width: 100,
       borderColor: '#330000',
       borderWidth: 0.8,
       borderRadius: 2
@@ -79,7 +69,6 @@ export default {
   pickerStyle: {
     paddingRight: 5,
     paddingLeft: 5,
-    height: 40
   },
 
 }

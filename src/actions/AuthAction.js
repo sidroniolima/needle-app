@@ -32,9 +32,9 @@ export const createUser = (user) => {
 					.auth()
 					.createUserWithEmailAndPassword(user.email, user.senha)
 					.then((data) => {
-						console.log('ok', data);
+						
 						dispatch({ type: CADASTRO_OK, payload: data });
-						Actions.principal({type: 'reset'});
+						Actions.tabbar({type: 'reset'});
 					})
 					.catch(function (error) {
 						const erroMsg = handleAuthErrors(error.code);
@@ -104,7 +104,7 @@ export const loginUser = ({ user, password }) => {
 							payload: data
 						});
 
-						Actions.principal({type: 'reset'});
+						Actions.tabbar({type: 'reset'});
 					})
 					.catch((error) => {
 						//var errorCode = error.code;

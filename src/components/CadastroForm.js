@@ -6,14 +6,15 @@ import {
   StyleSheet,
   Text,
   TouchableOpacity,
-  Picker
+  Picker,
+  TextInput
 } from 'react-native';
 import { connect } from 'react-redux';
 import { Field, reduxForm } from 'redux-form';
 
 import { createUser } from '../actions/AuthAction';
 
-import Input from './common/Input';
+import InputSimple from './common/InputSimple';
 import PickerField from './common/PickerField';
 
 class CadastroForm extends Component {
@@ -29,32 +30,30 @@ class CadastroForm extends Component {
     return (
       <View style={{flex:1}}>
         <KeyboardAvoidingView
-          style={styles.container}
+          style={styles.cadastroFormContainer}
           behavior="padding"
           enabled
         >
           <ScrollView>
             <Field
               name="nome"
-              label="Nome"
               placeholder="Seu nome"
               value={this.props.nome}
-              component={Input}
+              component={InputSimple}
             />
 
             <Field
               name="empresa"
-              label="Empresa"
               placeholder="Nome de sua empresa"
               value={this.props.nomeEmpresa}
-              component={Input}
+              component={InputSimple}
             />
 
-            <Field
+            {/* <Field
               name="porte"
-              label="Porte"
               placeholder="Porte de sua empresa"
               value={this.props.porte}
+              style={styles.textInput}
               component={PickerField}
             >
               <Picker.Item value='' label='Selecione' />
@@ -65,9 +64,9 @@ class CadastroForm extends Component {
 
             <Field
               name="segmento"
-              label="Segmento"
               placeholder="Segmento principal"
               value={this.props.segmento}
+              style={styles.textInput}
               component={PickerField}
             >
               <Picker.Item value='' label='Selecione' />
@@ -75,30 +74,29 @@ class CadastroForm extends Component {
               <Picker.Item value='FITNESS' label='Fitness' />
               <Picker.Item value='MODA_PRAIA' label='Moda praia' />
               <Picker.Item value='TODOS' label='Todos' />
-            </Field>
+            </Field> */}
 
             <Field
               name="email"
-              label="Email"
               placeholder="Email para contato"
               value={this.props.email}
-              component={Input}
+              component={InputSimple}
             />
 
             <Field
               name="senha"
-              label="Senha"
               placeholder="Senha"
+              type="password"
               value={this.props.senha}
-              component={Input}
+              component={InputSimple}
             />
 
             <Field
-              name="Confirmação"
-              label="Confirmação"
+              name="confirmacao"
               placeholder="Confirme a senha"
+              type="password"
               value={this.props.confirmacao}
-              component={Input}
+              component={InputSimple}
             />
           </ScrollView>
 
@@ -122,16 +120,21 @@ class CadastroForm extends Component {
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: 'hsla(0, 0%, 100%, 0.3)',
-    marginTop: 20,
-    flexDirection: 'column',
-    justifyContent: 'space-around',
+  cadastroFormContainer: {
+    alignItems: 'stretch',
+  },
+  textInput:{
+    color: '#bfbfbf',
+    alignSelf: 'stretch',
+    padding: 12,
+    marginBottom: 10,
+    backgroundColor: 'rgba(255,255,255, 0.2)',
+    borderColor: "#bfbfbf",
+    borderWidth: 0.6
   },
   cadastrarBtn: {
     marginTop:5,
-    backgroundColor: '#bdc3e7',
+    backgroundColor: '#e74c3c',
     alignSelf: 'stretch',
     alignItems: 'center',
     padding: 14
@@ -145,7 +148,7 @@ const styles = StyleSheet.create({
   },
   errorMsg:
   {
-    color: '#330000',
+    color: '#e74c3c',
     fontSize: 11
   }
 });
