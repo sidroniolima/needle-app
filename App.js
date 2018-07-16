@@ -9,8 +9,10 @@ import reducers from './src/reducers';
 
 import Router from './Router';
 
-export default class App extends React.Component {
-  inicializeFirebase() {
+export default class App extends React.Component 
+{
+  inicializeFirebase() 
+  {
     var config = {
       apiKey: "AIzaSyDmwlPQcrGkN5YrbIf5MLh3P1AXKV-vftU",
       authDomain: "tetrati-needle-app.firebaseapp.com",
@@ -19,6 +21,7 @@ export default class App extends React.Component {
       storageBucket: "tetrati-needle-app.appspot.com",
       messagingSenderId: "1098852224469"
     };
+
     firebase.initializeApp(config);
   }
 

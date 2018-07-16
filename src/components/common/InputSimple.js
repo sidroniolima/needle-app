@@ -13,7 +13,8 @@ const InputSimple = (props) => {
 			style={meta.touched && meta.error ? textInputError : textInput}
 			onChangeText={input.onChange}
 			onBlur={input.onBlur}
-			value={input.value} />
+			value={input.value} 
+		/>
 	);
 };
 

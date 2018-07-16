@@ -1,12 +1,12 @@
 import React from 'react';
 import { View, Text } from 'react-native';
 import { Scene, Router, Tabs, Actions, ActionConst } from 'react-native-router-flux';
+import TabIcon from './src/components/common/TabIcon';
 import Login from './src/components/Login';
 import SplashScreen from './src/components/SplashScreen';
-import Cadastro from './src/components/Cadastro';
+import CadastroUsuario from './src/components/CadastroUsuario';
 import Principal from './src/components/Principal';
-import CustomNavigationBar from './src/components/CustomNavigationBar';
-import TabIcon from './src/components/common/TabIcon';
+import CadastroFaccao from './src/components/faccao/CadastroFaccao';
 
 const RouterComponent = () => {
 	return (
@@ -31,7 +31,7 @@ const RouterComponent = () => {
 
 					<Scene
 						key='cadastro'
-						component={Cadastro} />
+						component={CadastroUsuario} />
 				</Scene>
 
 				<Tabs
@@ -64,7 +64,7 @@ const RouterComponent = () => {
 
 						<Scene
 							key="screentwo"
-							component={Cadastro}
+							component={CadastroFaccao}
 							hideNavBar
 						/>
 					</Scene>
@@ -72,12 +72,12 @@ const RouterComponent = () => {
 					<Scene
 						key="Three"
 						icon={TabIcon}
-						iconName="archive"
-						title="Sua lista">
+						iconName="industry"
+						title="Sua facção">
 
 						<Scene
 							key="screenthree"
-							component={Cadastro}
+							component={CadastroFaccao}
 							hideNavBar
 						/>
 					</Scene>
