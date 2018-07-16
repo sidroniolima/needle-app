@@ -33,7 +33,6 @@ class LoginForm extends Component
 
   onLoginWithFacebookPress()
   {
-    console.log('PRESS LOGIN FACE');
     this.props.loginWithFacebook();
   }
 

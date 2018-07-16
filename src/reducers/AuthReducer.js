@@ -41,15 +41,12 @@ export default (state = INITIAL_STATE, action) => {
 		}
 		case LOGIN_USER_SUCCESS:
 		{
-			const { uid, email } = action.payload;
-			
-			return { ...state, user: {uid, email} };
+			//console.log(LOGIN_USER_SUCCESS, action.payload);
+			return { ...state, user:  action.payload };
 		}
 		case LOGIN_USER_SUCCESS_FACEBOOK:
 		{
-			const { token, user } = action.payload;
-			console.log('LOGIN FACE SUCCESS', token, user);
-			return { ...state, token: token, user: user };
+			return { ...state, user:  action.payload };
 		}
 		case LOGIN_USER_FAIL:
 		{

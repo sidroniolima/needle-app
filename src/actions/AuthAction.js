@@ -23,7 +23,8 @@ import {
 	CADASTRO_ERROR
 } from './types';
 
-export const createUser = (user) => {
+export const createUser = (usuario) => {
+	
 	return (dispatch) => {
 		firebase
 			.auth()
@@ -31,11 +32,20 @@ export const createUser = (user) => {
 			.then( () => {
 				firebase
 					.auth()
-					.createUserWithEmailAndPassword(user.email, user.senha)
-					.then((data) => {
-						
-						dispatch({ type: CADASTRO_OK, payload: data });
-						Actions.tabbar({type: 'reset'});
+					.createUserWithEmailAndPassword(usuario.email, usuario.senha)
+					.then((user) => 
+					{
+						user.updateProfile({
+								displayName: usuario.nome,
+								email: usuario.email
+						}).then( () => 
+						{
+							
+							dispatch({ type: CADASTRO_OK, payload: user });
+							Actions.tabbar({type: 'reset'});
+	
+						}).catch( (error) => {
+						})						
 					})
 					.catch(function (error) {
 						const erroMsg = handleAuthErrors(error.code);
@@ -88,38 +98,40 @@ export const passwordChanged = (text) => {
 
 export const loginWithFacebook = () => 
 {
-	console.log('TRY LOGIN FACE');
-	const provider = new firebase.auth.FacebookAuthProvider();
-
-	provider.addScope('public_profile');
-	provider.addScope('email');
-
 	return (dispatch) => {
+		Expo.Facebook.logInWithReadPermissionsAsync(
+			'2083542691720312',
+			{ permissions: ['public_profile'] }
+		).then(({type, token}) => {
 
-		firebase.auth().signInWithPopup(provider).then(function(result) {
-			// This gives you a Facebook Access Token. You can use it to access the Facebook API.
-			var token = result.credential.accessToken;
-			// The signed-in user info.
-			var user = result.user;
-			// ...
+			if (type === 'success') 
+			{
+				// Build Firebase credential with the Facebook access token.
+				const credential = firebase.auth.FacebookAuthProvider.credential(token);
 
-			dispatch({
-				type: LOGIN_USER_SUCCESS_FACEBOOK,
-				payload: { token, user }
-			});
+				// Sign in with credential from the Facebook user.
+				firebase
+					.auth()
+						.signInWithCredential(credential)
+						.then((data) => 
+						{
+							dispatch({
+								type: LOGIN_USER_SUCCESS,
+								payload: data
+							});
 
-			Actions.tabbar({type: 'reset'});
+							Actions.tabbar({type: 'reset'});
+						})
+						.catch((error) => 
+						{
+							var errorMessage = error.message;
 
-		}).catch(function(error) {
-			console.log(error);
-			// Handle Errors here.
-			var errorCode = error.code;
-			var errorMessage = error.message;
-			// The email of the user's account used.
-			var email = error.email;
-			// The firebase.auth.AuthCredential type that was used.
-			var credential = error.credential;
-			// ...
+							dispatch({
+								type: LOGIN_USER_FAIL,
+								payload: errorMessage
+							});
+						});
+			}
 		});
 	}
 }
