@@ -1,4 +1,5 @@
 import firebase from 'firebase';
+import { NOVA_FACCAO, ADICIONA_MACHINE, ZERA_MACHINE } from './types';
 
 export const createFaccao = (uid) => 
 {
@@ -28,5 +29,29 @@ export const createFaccao = (uid) =>
       .update(updates)
       .then( () => console.log('Gravou'))
       .catch( (error) => console.log('Error: ', error));
+  }
+}
+
+export const novaFaccao = () => 
+{
+  return (dispatch) =>
+  {
+    dispatch({ type: NOVA_FACCAO, payload: NOVA_FACCAO })
+  }
+}
+
+export const adicionaMachine = (machine) =>
+{
+  return (dispatch) =>
+  {
+    dispatch({ type: ADICIONA_MACHINE, payload: machine });
+  }
+}
+
+export const zeraMachine = (machine) =>
+{
+  return (dispatch) =>
+  {
+    dispatch({ type: ZERA_MACHINE, payload: machine });
   }
 }

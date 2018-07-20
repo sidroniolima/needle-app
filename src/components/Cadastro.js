@@ -29,7 +29,6 @@ const styles = StyleSheet.create({
   },
   cadastro: {
     flex: 1,
-    alignItems: 'stretch',
     backgroundColor: '#ffffff',
     padding: 10
   },

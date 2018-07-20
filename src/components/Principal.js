@@ -11,6 +11,16 @@ import { createFaccao } from '../actions/FaccaoAction';
 
 class Principal extends React.Component {
 
+  constructor(props)
+  {
+    super(props);
+
+    this.state = {
+      travete: 0,
+      colarete: 0
+    }
+  }
+
   render() {
     const { displayName, uid } = this.props.user || {};
 
@@ -33,12 +43,13 @@ class Principal extends React.Component {
         <View style={styles.content}>
           <TouchableOpacity
             style={styles.logoutBtn}
-            onPress={() => this.props.createFaccao(uid)}
+            onPress={() => this.setState({travete: ++this.state.travete })}
+            onLongPress={() => this.setState({travete: 0})}
           >
             <Text style={styles.textButton}>Travete</Text>
             
             <View style={styles.badgeView}>
-              <Text style={styles.badge}>3</Text>
+              <Text style={styles.badge}>{this.state.travete}</Text>
             </View>
 
           </TouchableOpacity>

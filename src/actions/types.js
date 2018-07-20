@@ -24,3 +24,7 @@ export const ERROR_AUTH_SENHA_FRACA = 'Escolha uma senha mais forte';
 
 export const CADASTRO_ERROR = 'cadastro_error';
 export const CADASTRO_OK = 'cadastro_ok';
+
+export const NOVA_FACCAO = 'nova_faccao';
+export const ADICIONA_MACHINE = 'adiciona_machine';
+export const ZERA_MACHINE = 'zera_machine';
