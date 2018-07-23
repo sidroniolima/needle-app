@@ -3,24 +3,25 @@ import {
   KeyboardAvoidingView,
   ScrollView,
   View,
-  StyleSheet,
   Text,
   TouchableOpacity,
 } from 'react-native';
 import { connect } from 'react-redux';
 import { Field, reduxForm } from 'redux-form';
 
-import { createFaccao, novaFaccao, 
-  adicionaMachine, zeraMachine } from '../../actions/FaccaoAction';
+import {
+  createFaccao, novaFaccao,
+  adicionaMachine, zeraMachine
+} from '../../actions/FaccaoAction';
 
 import InputSimple from '../common/InputSimple';
 import PickerSimple from '../common/PickerSimple';
 import InputItemCount from '../common/InputItemCount';
+import styles from './CadastroFaccaoForm.styles';
 
 class CadastroFaccaoForm extends Component {
-  
-  constructor(props)
-  {
+
+  constructor(props) {
     super(props);
 
     this.state = {
@@ -28,8 +29,7 @@ class CadastroFaccaoForm extends Component {
     }
   }
 
-  componentDidMount()
-  {
+  componentDidMount() {
     this.props.novaFaccao();
   }
 
@@ -38,177 +38,143 @@ class CadastroFaccaoForm extends Component {
     console.log(data);
   }
 
-  handleItemCountClick(field)
-  {
-    console.log('click', field);
+  handleItemCountClick(field) {
     this.props.adicionaMachine(field);
   }
-  
-  handleItemCountLongClick(field)
-  {
-    console.log('long', field);
+
+  handleItemCountLongClick(field) {
     this.props.zeraMachine(field);
   }
 
-  render() 
-  {
+  render() {
     const { handleSubmit } = this.props;
     const { user, name, size, fone, location, machines } = this.props.faccao;
-    console.log(machines.travete)
+
     return (
-      <ScrollView style={{flex:1}}>
+      <ScrollView style={styles.cadastroFormContainer}>
         <KeyboardAvoidingView
-          style={styles.cadastroFormContainer}
           behavior="padding"
           enabled
         >
-          <ScrollView>
-            <Field
-              name="name"
-              placeholder="Nome da Facção"
-              value={name}
-              component={InputSimple}
-            />          
+          <Field
+            name="name"
+            placeholder="Nome da Facção"
+            value={name}
+            component={InputSimple}
+          />
 
+          <Field
+            name="size"
+            value={this.state.pickerPorteValue}
+            component={PickerSimple}
+            onChange={(itemValue, item) => {
+              this.setState({ pickerPorteValue: itemValue });
+            }}
+            options={[
+              { value: null, label: 'Selecione o porte' },
+              { value: 'PEQUENO', label: 'Pqueno' },
+              { value: 'MEDIO', label: 'Médio' },
+              { value: 'GRANDE', label: 'Grande' }]}
+          />
+
+          <Field
+            name="fone"
+            placeholder="Telefone com ddd"
+            value={fone}
+            component={InputSimple}
+          />
+
+          <View style={styles.viewMachines}>
             <Field
-              name="size"
-              value={this.state.pickerPorteValue}
-              component={PickerSimple}
-              onChange={ (itemValue, item) => {								
-								this.setState({pickerPorteValue: itemValue});								
-							}}
-              options={[{value: 'PEQUENO', label: 'Pequeno'},
-                        {value: 'MEDIO', label: 'Médio'},
-                        {value: 'GRANDE', label: 'Grande'}]}
+              name="machines.travete"
+              label='Travete'
+              value={machines.travete}
+              component={InputItemCount}
+              onPress={() => this.handleItemCountClick('travete')}
+              onLongPress={() => this.handleItemCountLongClick('travete')}
+            />
+            <Field
+              name="machines.overlock"
+              label='Overlock'
+              value={machines.overlock}
+              component={InputItemCount}
+              onPress={() => this.handleItemCountClick('overlock')}
+              onLongPress={() => this.handleItemCountLongClick('overlock')}
             />
 
             <Field
-              name="fone"
-              placeholder="Telefone com ddd"
-              value={fone}
-              component={InputSimple}
+              name="machines.reta"
+              label='Reta'
+              value={machines.reta}
+              component={InputItemCount}
+              onPress={() => this.handleItemCountClick('reta')}
+              onLongPress={() => this.handleItemCountLongClick('reta')}
             />
 
-            <View style={styles.viewMachines}>
-              <Field
-                name="machines.travete"
-                label='Travete'
-                value={machines.travete}
-                component={InputItemCount}
-                onPress={() => this.handleItemCountClick('travete')}
-                onLongPress={() => this.handleItemCountLongClick('travete')}
-              />
-              <Field
-                name="machines.overlock"
-                label='Overlock'
-                value={machines.overlock}
-                component={InputItemCount}
-                onPress={() => this.handleItemCountClick('overlock')}
-                onLongPress={() => this.handleItemCountLongClick('overlock')}
-              />
+            <Field
+              name="machines.colarete"
+              label='Colarete'
+              value={machines.colarete}
+              component={InputItemCount}
+              onPress={() => this.handleItemCountClick('colarete')}
+              onLongPress={() => this.handleItemCountLongClick('colarete')}
+            />
 
-              <Field
-                name="machines.reta"
-                label='Reta'
-                value={machines.reta}
-                component={InputItemCount}
-                onPress={() => this.handleItemCountClick('reta')}
-                onLongPress={() => this.handleItemCountLongClick('reta')}
-              />
+            <Field
+              name="machines.dois_pontos"
+              label='Dois pontos'
+              value={machines.dois_pontos}
+              component={InputItemCount}
+              onPress={() => this.handleItemCountClick('dois_pontos')}
+              onLongPress={() => this.handleItemCountLongClick('dois_pontos')}
+            />
 
-              <Field
-                name="machines.colarete"
-                label='Colarete'
-                value={machines.colarete}
-                component={InputItemCount}
-                onPress={() => this.handleItemCountClick('colarete')}
-                onLongPress={() => this.handleItemCountLongClick('colarete')}
-              />           
+            <Field
+              name="machines.tres_pontos"
+              label='Três pontos'
+              value={machines.tres_pontos}
+              component={InputItemCount}
+              onPress={() => this.handleItemCountClick('tres_pontos')}
+              onLongPress={() => this.handleItemCountLongClick('tres_pontos')}
+            />
 
-              <Field
-                name="machines.dois_pontos"
-                label='Dois pontos'
-                value={machines.dois_pontos}
-                component={InputItemCount}
-                onPress={() => this.handleItemCountClick('dois_pontos')}
-                onLongPress={() => this.handleItemCountLongClick('dois_pontos')}
-              />    
+            <Field
+              name="machines.duas_agulhas"
+              label='Duas agulhas'
+              value={machines.duas_agulhas}
+              component={InputItemCount}
+              onPress={() => this.handleItemCountClick('duas_agulhas')}
+              onLongPress={() => this.handleItemCountLongClick('duas_agulhas')}
+            />
 
-              <Field
-                name="machines.tres_pontos"
-                label='Três pontos'
-                value={machines.tres_pontos}
-                component={InputItemCount}
-                onPress={() => this.handleItemCountClick('tres_pontos')}
-                onLongPress={() => this.handleItemCountLongClick('tres_pontos')}
-              />    
-
-              <Field
-                name="machines.duas_agulhas"
-                label='Duas agulhas'
-                value={machines.duas_agulhas}
-                component={InputItemCount}
-                onPress={() => this.handleItemCountClick('duas_agulhas')}
-                onLongPress={() => this.handleItemCountLongClick('duas_agulhas')}
-              />         
-
-              <Field
-                name="machines.interlock"
-                label='Interlock'
-                value={machines.interlock}
-                component={InputItemCount}
-                onPress={() => this.handleItemCountClick('interlock')}
-                onLongPress={() => this.handleItemCountLongClick('interlock')}
-              />       
-            </View>                                                             
-          </ScrollView>
+            <Field
+              name="machines.interlock"
+              label='Interlock'
+              value={machines.interlock}
+              component={InputItemCount}
+              onPress={() => this.handleItemCountClick('interlock')}
+              onLongPress={() => this.handleItemCountLongClick('interlock')}
+            />
+          </View>
 
         </KeyboardAvoidingView>
 
         <View style={styles.errorView}>
           <Text style={styles.errorText}>
-            {this.props.msg || ' '}
+            {this.props.msg || 'Clique nas máquinas para acrescentar e segure para zerar.'}
           </Text>
         </View>
-        
+
         <TouchableOpacity
           style={styles.cadastrarBtn}
           onPress={handleSubmit((values) => this.onSubmit(values))}
         >
-          <Text>Completar</Text>
+          <Text style={styles.txtBtn}>Completar</Text>
         </TouchableOpacity>
       </ScrollView>
     );
   }
 }
-
-const styles = StyleSheet.create({
-  cadastroFormContainer: {
-  },
-  cadastrarBtn: {
-    marginTop:5,
-    backgroundColor: '#e74c3c',
-    alignSelf: 'stretch',
-    alignItems: 'center',
-    padding: 14
-  },
-  errorView:
-  {    
-    marginTop: 3,
-    backgroundColor: 'hsla(0, 0%, 100%, 0.3)',
-    alignItems: 'center',
-    padding: 2
-  },
-  errorMsg:
-  {
-    color: '#e74c3c',
-    fontSize: 11
-  },
-  viewMachines:
-  {
-    justifyContent: 'space-between'
-  }
-});
 
 CadastroFaccaoForm = reduxForm({
   form: 'faccao',
@@ -231,13 +197,15 @@ CadastroFaccaoForm = reduxForm({
 const mapStateToProps = state => {
   const faccao = state.faccao;
   const initialValues = faccao;
-  const msg = state.auth.cadastroError;  
-  
-  return { faccao, initialValues, msg  };
+  const msg = state.auth.cadastroError;
+
+  return { faccao, initialValues, msg };
 }
 
-export default connect(mapStateToProps, 
-  { novaFaccao, 
-    createFaccao, 
-    adicionaMachine, 
-    zeraMachine })(CadastroFaccaoForm);
+export default connect(mapStateToProps,
+  {
+    novaFaccao,
+    createFaccao,
+    adicionaMachine,
+    zeraMachine
+  })(CadastroFaccaoForm);

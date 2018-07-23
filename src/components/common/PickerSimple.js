@@ -33,7 +33,7 @@ const styles =
 			backgroundColor: 'rgba(255,255,255, 0.2)',
 			borderColor: "#bfbfbf",
 			marginBottom: 10,
-			borderWidth: 0.6
+			borderWidth: 0.6,
 		},
 		viewPickerError: {
 			backgroundColor: '#bfbfbf',
@@ -41,7 +41,7 @@ const styles =
 			backgroundColor: 'rgba(255,255,255, 0.2)',
 			borderColor: "#e74c3c",
 			marginBottom: 10,
-			borderWidth: 0.6
+			borderWidth: 0.6,
 		},
 		textInput: {
 			color: '#bfbfbf',
