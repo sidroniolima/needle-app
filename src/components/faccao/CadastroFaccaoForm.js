@@ -72,7 +72,7 @@ class CadastroFaccaoForm extends Component {
             }}
             options={[
               { value: null, label: 'Selecione o porte' },
-              { value: 'PEQUENO', label: 'Pqueno' },
+              { value: 'PEQUENO', label: 'Pequeno' },
               { value: 'MEDIO', label: 'Médio' },
               { value: 'GRANDE', label: 'Grande' }]}
           />

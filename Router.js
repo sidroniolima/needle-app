@@ -7,6 +7,7 @@ import SplashScreen from './src/components/SplashScreen';
 import CadastroUsuario from './src/components/CadastroUsuario';
 import Principal from './src/components/Principal';
 import CadastroFaccao from './src/components/faccao/CadastroFaccao';
+import ListaFaccoes from './src/components/faccao_lista/ListaFaccoes';
 
 const RouterComponent = () => {
 	return (
@@ -60,11 +61,11 @@ const RouterComponent = () => {
 						key="Two"
 						icon={TabIcon}
 						iconName="list"
-						title="Oportunidades">
+						title="Facções">
 
 						<Scene
 							key="screentwo"
-							component={CadastroFaccao}
+							component={ ListaFaccoes }
 							hideNavBar
 						/>
 					</Scene>
@@ -77,7 +78,7 @@ const RouterComponent = () => {
 
 						<Scene
 							key="screenthree"
-							component={CadastroFaccao}
+							component={ CadastroFaccao }
 							hideNavBar
 						/>
 					</Scene>
