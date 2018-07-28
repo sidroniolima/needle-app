@@ -11,7 +11,7 @@ export default (props) => (
       <Text style={styles.headerText}>{props.headerText}</Text>
     </View>
 
-    <View style={{ flex: 3 }}>
+    <View style={{ flex: 5 }}>
       {props.children}
     </View>
   </View>
@@ -30,7 +30,8 @@ const styles = StyleSheet.create({
   cadastro: {
     flex: 1,
     backgroundColor: '#ffffff',
-    padding: 10
+    padding: 5,
+    marginTop: 20
   },
   logo:{
     width: 32,

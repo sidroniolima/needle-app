@@ -4,6 +4,7 @@ import {
   ScrollView,
   View,
   Text,
+  TextInput,
   TouchableOpacity,
 } from 'react-native';
 import { connect } from 'react-redux';
@@ -11,7 +12,8 @@ import { Field, reduxForm } from 'redux-form';
 
 import {
   createFaccao, novaFaccao,
-  adicionaMachine, zeraMachine
+  adicionaMachine, zeraMachine,
+  pesquisarFaccao
 } from '../../actions/FaccaoAction';
 
 import InputSimple from '../common/InputSimple';
@@ -31,11 +33,11 @@ class CadastroFaccaoForm extends Component {
 
   componentDidMount() {
     this.props.novaFaccao();
+    this.props.pesquisarFaccao(this.props.user.uid);
   }
 
-  onSubmit(data) {
-    //this.props.createUser(data);
-    console.log(data);
+  onSubmit(uid, data) {
+    this.props.createFaccao(uid, data);
   }
 
   handleItemCountClick(field) {
@@ -47,8 +49,8 @@ class CadastroFaccaoForm extends Component {
   }
 
   render() {
-    const { handleSubmit } = this.props;
-    const { user, name, size, fone, location, machines } = this.props.faccao;
+    const { handleSubmit, user: {uid}  } = this.props;
+    const { name, size, fone, location, machines } = this.props.faccao;
 
     return (
       <ScrollView style={styles.cadastroFormContainer}>
@@ -56,6 +58,13 @@ class CadastroFaccaoForm extends Component {
           behavior="padding"
           enabled
         >
+         <Field
+            name="user.uid"
+            value={uid}
+            component={TextInput}
+            style={{height: 0}}
+          />
+
           <Field
             name="name"
             placeholder="Nome da Facção"
@@ -167,7 +176,7 @@ class CadastroFaccaoForm extends Component {
 
         <TouchableOpacity
           style={styles.cadastrarBtn}
-          onPress={handleSubmit((values) => this.onSubmit(values))}
+          onPress={handleSubmit((values) => this.onSubmit(uid, values))}
         >
           <Text style={styles.txtBtn}>Completar</Text>
         </TouchableOpacity>
@@ -195,11 +204,12 @@ CadastroFaccaoForm = reduxForm({
 })(CadastroFaccaoForm);
 
 const mapStateToProps = state => {
+  const user = state.auth.user;
   const faccao = state.faccao;
   const initialValues = faccao;
   const msg = state.auth.cadastroError;
 
-  return { faccao, initialValues, msg };
+  return { user, faccao, initialValues, msg };
 }
 
 export default connect(mapStateToProps,
@@ -207,5 +217,6 @@ export default connect(mapStateToProps,
     novaFaccao,
     createFaccao,
     adicionaMachine,
-    zeraMachine
+    zeraMachine,
+    pesquisarFaccao
   })(CadastroFaccaoForm);

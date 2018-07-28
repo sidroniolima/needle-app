@@ -1,65 +1,63 @@
 import React from 'react';
-import { 
-  View, 
-  StyleSheet } from 'react-native';
-import { List,
+import { connect } from 'react-redux';
+import {
+  StyleSheet
+} from 'react-native';
+import {
+  List,
   ListItem,
-  Avatar } from 'react-native-elements';
+  Avatar
+} from 'react-native-elements';
+import { listarFaccoes } from '../../actions/FaccaoAction';
 
-export default (props) => {
-  const lista = [{
-    key: '1',
-    nome: 'Tailu',
-  },{
-    key: '2',
-    nome: 'Suspiro Íntimo'
-  },{
-    key: '3',
-    nome: 'Sensual Lingerie'
-  },{
-    key: '4',
-    nome: 'D\'Marceles'
-  },{
-    key: '5',
-    nome: 'Fábrica de Bojos'
-  },{
-    key: '6',
-    nome: 'Facção da Fran'
-  },
-]
+import Cadastro from '../Cadastro';
+import Images from '../common/Images';
 
-return (
-    <View style={styles.container}>
-      <List>
-        {
-          lista.map( (item, i) => (
-            <ListItem
-              key={i}
-              title={item.nome}
-              avatar={
-                <Avatar
-                  size="small"
-                  rounded
-                  title={item.nome}
-                  onPress={() => console.log("Works!")}
-                  activeOpacity={0.7}
-                />
-              }
-            />
-          ))
-        }
-      </List>
-    </View>
-  )
+class ListaFaccoes extends React.Component 
+{
+
+  componentDidMount()
+  {
+    this.props.listarFaccoes();
+  }
+
+  render() 
+  {
+    return (
+      <Cadastro
+        image={Images.ImageCadastroFaccao}
+        headerText='Lista de facções perto de você'
+      >
+        <List>
+{/*           {
+            lista.map((item, i) => (
+              <ListItem
+                key={i}
+                title={item.nome}
+                avatar={
+                  <Avatar
+                    small
+                    rounded
+                    title={item.getIniciais()}
+                    onPress={() => console.log("Works!")}
+                    activeOpacity={0.7}
+                  />
+                }
+              />
+            ))
+          } */}
+        </List>
+      </Cadastro>
+    );
+  }
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    marginTop: 20,
-  },
   list: {
-    padding: 5,
-    marginBottom: 20
+    padding: 5
   }
 });
+
+
+
+export default connect(null, { listarFaccoes })(ListaFaccoes);

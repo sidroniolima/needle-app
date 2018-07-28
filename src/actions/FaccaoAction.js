@@ -1,17 +1,10 @@
 import firebase from 'firebase';
 import { NOVA_FACCAO, ADICIONA_MACHINE, ZERA_MACHINE } from './types';
 
-export const createFaccao = (uid) => 
+export const createFaccao = (uid, data) => 
 {
   return (dispatch) => 
-  {
-    var faccaoData = {
-      user: uid,
-      name: 'Tailu',
-      machines: ['Overlock','Colarete','3 pontos']
-    };
-
-    // Get a key for a new Post.
+  {    
     var newFaccaoKey = firebase
       .database()
       .ref()
@@ -20,8 +13,8 @@ export const createFaccao = (uid) =>
 
     var updates = {};
     
-    updates['/faccoes/' + newFaccaoKey] = faccaoData;
-    updates['/user-faccao/' + uid + '/' + newFaccaoKey] = faccaoData;
+    updates['/faccoes/' + newFaccaoKey] = data;
+    updates['/user-faccao/' + uid + '/' + newFaccaoKey] = data;
 
     firebase
       .database()
@@ -29,6 +22,40 @@ export const createFaccao = (uid) =>
       .update(updates)
       .then( () => console.log('Gravou'))
       .catch( (error) => console.log('Error: ', error));
+  }
+}
+
+export const pesquisarFaccao = (uid) =>
+{
+  
+  return (dispatch) =>
+  {
+    firebase
+      .database()
+      .ref(`user-faccao/${uid}`)
+      .on('value', 
+        (snapshot) => {
+          console.log('DADOS', snapshot.val());
+        }, 
+        (error) => console.log('ERROR PESQUISA', error)
+      );
+  }
+}
+
+export const listarFaccoes = () =>
+{
+  
+  return (dispatch) =>
+  {
+    firebase
+      .database()
+      .ref(`faccoes`)
+      .on('value', 
+        (snapshot) => {
+          console.log('DADOS', snapshot.val());
+        }, 
+        (error) => console.log('ERROR PESQUISA', error)
+      );
   }
 }
 

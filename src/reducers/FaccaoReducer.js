@@ -2,10 +2,10 @@ import { NOVA_FACCAO, ADICIONA_MACHINE, ZERA_MACHINE } from '../actions/types';
 import propTypes from 'redux-form/lib/propTypes';
 
 const INITIAL_STATE = {
-  user: '',
   name: '',
   size: '',
   fone: '',
+  initials: '',
   location: [0.00, 0.00],
   machines:
   {
@@ -17,8 +17,7 @@ const INITIAL_STATE = {
     tres_pontos: 0,
     duas_agulhas: 0,
     interlock: 0
-  }
-  
+  }  
 };
 
 export default (state = INITIAL_STATE, action) =>
