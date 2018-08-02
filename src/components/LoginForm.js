@@ -47,7 +47,7 @@ class LoginForm extends Component
           underlineColorAndroid="transparent"
           placeholder="Login"
           style={styles.textInput}
-          onChange={(value) => this.setState( {user: value} )}
+          onChangeText={(user) => this.setState({ user })}
           value={this.state.user}
         />
 
@@ -56,7 +56,7 @@ class LoginForm extends Component
           underlineColorAndroid="transparent"
           placeholder="Senha"
           style={styles.textInput}
-          onChange={(value) => this.setState( {password: value} )}
+          onChangeText={(password) => this.setState({ password })}
           value={this.state.password}
         />
 

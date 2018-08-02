@@ -149,7 +149,7 @@ export const loginUser = ({ user, password }) => {
 					.auth()
 					.signInWithEmailAndPassword(user, password)
 					.then((data) => {
-
+						console.log(data);
 						dispatch({
 							type: LOGIN_USER_SUCCESS,
 							payload: data
