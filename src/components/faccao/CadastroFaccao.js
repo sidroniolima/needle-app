@@ -2,9 +2,8 @@ import React from 'react';
 import { connect } from 'react-redux';
 import Cadastro from '../Cadastro';
 import CadastroFaccaoForm from './CadastroFaccaoForm';
-import Images from '../common/Images';
-import Spinner from '../common/Spinner';
-
+import { Spinner } from '../common/';
+import { ImageCadastroFaccao } from '../common/Images';
 import { pesquisarFaccao } from '../../actions/FaccaoAction';
 
 class CadastroFaccao extends React.Component 
@@ -18,14 +17,14 @@ class CadastroFaccao extends React.Component
   {
     if (this.props.consultandoDb)
     {
-      return <Spinner/>;
+      return (<Spinner />);
     }
 
     var headerText = `Olá, ${this.props.displayName}! Complete seu cadastro!`  
     
     return (
       <Cadastro
-        image={Images.ImageCadastroFaccao}
+        image={ImageCadastroFaccao}
         headerText={headerText}
       >
         <CadastroFaccaoForm />

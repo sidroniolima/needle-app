@@ -31,11 +31,6 @@ class CadastroFaccaoForm extends Component {
     }
   }
 
-  componentDidMount() {
-    this.props.novaFaccao();
-    this.props.pesquisarFaccao(this.props.user.uid);
-  }
-
   onSubmit(uid, data) {
     this.props.createFaccao(uid, data);
   }
@@ -50,7 +45,7 @@ class CadastroFaccaoForm extends Component {
 
   render() {
     const { handleSubmit, user: {uid}  } = this.props;
-    const { name, size, fone, location, machines } = this.props.faccao;
+    const { name, _id, size, fone, location, machines } = this.props.faccao;
 
     return (
       <ScrollView style={styles.cadastroFormContainer}>
@@ -61,6 +56,13 @@ class CadastroFaccaoForm extends Component {
          <Field
             name="user.uid"
             value={uid}
+            component={TextInput}
+            style={{height: 0}}
+          />
+
+         <Field
+            name="_id"
+            value={_id}
             component={TextInput}
             style={{height: 0}}
           />
@@ -205,7 +207,7 @@ CadastroFaccaoForm = reduxForm({
 
 const mapStateToProps = state => {
   const user = state.auth.user;
-  const faccao = state.faccao;
+  const faccao = state.faccao.faccao;
   const initialValues = faccao;
   const msg = state.auth.cadastroError;
 

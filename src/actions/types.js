@@ -22,3 +22,4 @@ export const ZERA_MACHINE = 'zera_machine';
 export const CONSULTANDO_DB = 'consultando_db';
 export const PESQUISA_FACCAO_OK = 'pesquisa_faccao_ok';
 export const PESQUISA_FACCAO_NAO_ENCONTRADA = 'pesquisa_faccao_nao_econtrada';
+export const FACCOES_LISTADAS = 'faccoes_listadas';

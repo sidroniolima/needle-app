@@ -3,7 +3,7 @@ import { StyleSheet, ImageBackground } from 'react-native';
 
 export default ({ children }) => (
   <ImageBackground
-    //source={require('../../assets/images/login-background.jpg')}
+    source={require('../../assets/images/login-background.jpg')}
     style={styles.container}
   >
     {children}
