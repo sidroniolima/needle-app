@@ -18,3 +18,7 @@ export const CADASTRO_OK = 'cadastro_ok';
 export const NOVA_FACCAO = 'nova_faccao';
 export const ADICIONA_MACHINE = 'adiciona_machine';
 export const ZERA_MACHINE = 'zera_machine';
+
+export const CONSULTANDO_DB = 'consultando_db';
+export const PESQUISA_FACCAO_OK = 'pesquisa_faccao_ok';
+export const PESQUISA_FACCAO_NAO_ENCONTRADA = 'pesquisa_faccao_nao_econtrada';

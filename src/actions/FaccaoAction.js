@@ -1,5 +1,11 @@
 import firebase from 'firebase';
-import { NOVA_FACCAO, ADICIONA_MACHINE, ZERA_MACHINE } from './types';
+import { 
+  NOVA_FACCAO, 
+  ADICIONA_MACHINE, 
+  ZERA_MACHINE,
+  PESQUISA_FACCAO_OK,
+  PESQUISA_FACCAO_NAO_ENCONTRADA,
+  CONSULTANDO_DB } from './types';
 
 export const createFaccao = (uid, data) => 
 {
@@ -27,18 +33,29 @@ export const createFaccao = (uid, data) =>
 
 export const pesquisarFaccao = (uid) =>
 {
-  
   return (dispatch) =>
   {
+    dispatch({ type: CONSULTANDO_DB, action: true });
+
     firebase
       .database()
-      .ref(`user-faccao/${uid}`)
+      .ref(`user-faccao/${uid}/`)
       .on('value', 
-        (snapshot) => {
-          console.log('DADOS', snapshot.val());
+        (snap) => {
+          console.log('DADOS', Object.entries(snap.val())[0][0]);
+          
+          if (snap.val() === null)
+            dispatch({ type: PESQUISA_FACCAO_OK, action: snap.val() });
+          else
+           dispatch({ type: PESQUISA_FACCAO_NAO_ENCONTRADA, action: true });
         }, 
-        (error) => console.log('ERROR PESQUISA', error)
+        (error) => 
+        {
+          console.log('ERROR PESQUISA', error);
+        }
       );
+
+    dispatch({ type: CONSULTANDO_DB, action: false });
   }
 }
 

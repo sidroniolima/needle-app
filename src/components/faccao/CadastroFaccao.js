@@ -3,11 +3,24 @@ import { connect } from 'react-redux';
 import Cadastro from '../Cadastro';
 import CadastroFaccaoForm from './CadastroFaccaoForm';
 import Images from '../common/Images';
+import Spinner from '../common/Spinner';
+
+import { pesquisarFaccao } from '../../actions/FaccaoAction';
 
 class CadastroFaccao extends React.Component 
 {
+  componentDidMount()
+  {
+    this.props.pesquisarFaccao(this.props.uid);
+  }
+
   render() 
   {
+    if (this.props.consultandoDb)
+    {
+      return <Spinner/>;
+    }
+
     var headerText = `Olá, ${this.props.displayName}! Complete seu cadastro!`  
     
     return (
@@ -23,8 +36,9 @@ class CadastroFaccao extends React.Component
 
 const mapStateToProps = state => 
 { 
-  var { displayName } = state.auth.user;
-  return { displayName };
+  var { displayName, uid } = state.auth.user;
+  var { consultandoDb } = state.db;
+  return { displayName, uid, consultandoDb };
 }
 
-export default connect(mapStateToProps, null)(CadastroFaccao);
+export default connect(mapStateToProps, { pesquisarFaccao })(CadastroFaccao);

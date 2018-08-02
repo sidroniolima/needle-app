@@ -1,4 +1,8 @@
-import { NOVA_FACCAO, ADICIONA_MACHINE, ZERA_MACHINE } from '../actions/types';
+import { NOVA_FACCAO, 
+  ADICIONA_MACHINE, 
+  ZERA_MACHINE,
+  PESQUISA_FACCAO_OK,
+  PESQUISA_FACCAO_NAO_ENCONTRADA } from '../actions/types';
 import propTypes from 'redux-form/lib/propTypes';
 
 const INITIAL_STATE = {
@@ -17,7 +21,8 @@ const INITIAL_STATE = {
     tres_pontos: 0,
     duas_agulhas: 0,
     interlock: 0
-  }  
+  },
+  faccaoNaoEncontrada: false,
 };
 
 export default (state = INITIAL_STATE, action) =>
@@ -42,6 +47,17 @@ export default (state = INITIAL_STATE, action) =>
 
       return { ...state, machines : oldState.machines };
     }  
+    
+    case PESQUISA_FACCAO_OK:
+    {
+      return { ...state, ...action.payload, faccaoNaoEncontrada: false };
+    }
+    
+    case PESQUISA_FACCAO_NAO_ENCONTRADA:
+    {
+      return { ...state, faccaoNaoEncontrada: action.payload };
+    }
+    
     default :
       return state;
   }
