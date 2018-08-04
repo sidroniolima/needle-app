@@ -8,6 +8,7 @@ import CadastroUsuario from './src/components/CadastroUsuario';
 import Principal from './src/components/Principal';
 import CadastroFaccao from './src/components/faccao/CadastroFaccao';
 import ListaFaccoes from './src/components/faccao_lista/ListaFaccoes';
+import VisualizaFaccao from './src/components/faccao/VisualizaFaccao';
 
 const RouterComponent = () => {
 	return (
@@ -67,6 +68,11 @@ const RouterComponent = () => {
 							key="screentwo"
 							component={ ListaFaccoes }
 							hideNavBar
+						/>
+
+						<Scene
+							key="visualizaFaccao"
+							component={ VisualizaFaccao }
 						/>
 					</Scene>
 

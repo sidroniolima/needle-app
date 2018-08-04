@@ -180,7 +180,7 @@ class CadastroFaccaoForm extends Component {
           style={styles.cadastrarBtn}
           onPress={handleSubmit((values) => this.onSubmit(uid, values))}
         >
-          <Text style={styles.txtBtn}>Completar</Text>
+          <Text style={styles.txtBtn}>{this.props.lblBtnSubmit}</Text>
         </TouchableOpacity>
       </ScrollView>
     );

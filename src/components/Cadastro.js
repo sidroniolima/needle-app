@@ -29,7 +29,7 @@ const styles = StyleSheet.create({
   },
   cadastro: {
     flex: 1,
-    backgroundColor: '#ffffff',
+    backgroundColor: '#f8f8f8',
     padding: 5,
     marginTop: 20
   },

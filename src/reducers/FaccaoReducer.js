@@ -26,6 +26,24 @@ const INITIAL_STATE = {
     }
   },
   faccaoNaoEncontrada: false,
+  faccaoSelecionada:   {
+    name: '',
+    size: '',
+    fone: '',
+    initials: '',
+    location: [0.00, 0.00],
+    machines:
+    {
+      overlock: 0,
+      travete: 0,
+      reta: 0,
+      colarete: 0,
+      dois_pontos: 0,
+      tres_pontos: 0,
+      duas_agulhas: 0,
+      interlock: 0
+    }
+  },
   lista: []
 };
 

@@ -20,14 +20,18 @@ class CadastroFaccao extends React.Component
       return (<Spinner />);
     }
 
-    var headerText = `Olá, ${this.props.displayName}! Complete seu cadastro!`  
+    var acaoMsg = this.props.faccao && this.props.faccao.name ? 'Atualize' : 'Complete';
+    var lblBtnSubmit = acaoMsg === 'Atualize' ? 'Atualizar' : 'Completar';
+    var headerText = `Olá, ${this.props.displayName}! ${acaoMsg} seu cadastro!`  
     
     return (
       <Cadastro
         image={ImageCadastroFaccao}
         headerText={headerText}
       >
-        <CadastroFaccaoForm />
+        <CadastroFaccaoForm 
+          lblBtnSubmit = {lblBtnSubmit}
+        />
       </Cadastro>
     );
   }
@@ -37,7 +41,9 @@ const mapStateToProps = state =>
 { 
   var { displayName, uid } = state.auth.user;
   var { consultandoDb } = state.db;
-  return { displayName, uid, consultandoDb };
+  var { faccao } = state.faccao;
+
+  return { displayName, uid, consultandoDb, faccao };
 }
 
 export default connect(mapStateToProps, { pesquisarFaccao })(CadastroFaccao);

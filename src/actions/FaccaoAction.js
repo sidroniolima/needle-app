@@ -12,8 +12,6 @@ import snapshotToArray from './snapshotToArray';
 
 export const createFaccao = (uid, data) => 
 {
-  data = JSON.stringify(data);
-  
   return (dispatch) => 
   {    
     var newFaccaoKey = data["_id"];
@@ -39,8 +37,8 @@ export const createFaccao = (uid, data) =>
       .database()
       .ref()
       .update(updates)
-      .then( () => console.log('Gravou'))
-      .catch( (error) => console.log('Error: ', error));
+      .then( () => dispatch(pesquisarFaccao(uid)))
+      .catch( (error) => console.log('Error: ', error));   
   }
 }
 
